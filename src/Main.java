@@ -12,11 +12,13 @@ class Main {
         myData.addPath("C:/Users/val_p/Desktop/PROJ631/2_Java_Reseau_bus/Fichier_exemple/ligne_bleue.txt");
         myData.addPath("C:/Users/val_p/Desktop/PROJ631/2_Java_Reseau_bus/Fichier_exemple/ligne_verte.txt");
         
-        System.out.println(myData + "\n");
+        //System.out.println(myData + "\n");
 
         ReadFile myFile = new ReadFile(myData.paths_list.get(0));
         
-        myFile.fileToString();
+        System.out.println(myFile);
+      
+
 
         System.out.println("\nFin du programme \n");
 
