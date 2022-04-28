@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
-class DataFiles {
+class DataFile {
 
     public ArrayList<String> paths_list;
 
-    public DataFiles () {
+    public DataFile () {
         paths_list = new ArrayList<String>();
     }
 
