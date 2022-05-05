@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+//Contient tous les liens menant aux fichiers à lire.
 
 class DataFile {
 

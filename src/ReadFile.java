@@ -16,13 +16,11 @@ class ReadFile {
         Path myPath = Paths.get(this.path);
         ArrayList<String> res = new ArrayList<String>();
         try {
-
 			Files.lines(myPath, charset).forEach(y-> res.add(y));
-
-		} catch (IOException ex) {
+		} 
+        catch (IOException ex) {
 			System.out.format("I/O Exception:", ex);
 		}
-        
         return res;
     }
 
