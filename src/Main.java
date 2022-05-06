@@ -11,27 +11,30 @@ class Main {
         myData.addPath("C:/Users/val_p/Desktop/PROJ631/2_Java_Reseau_bus/Fichier_exemple/ligne_verte.txt");
         
 
-        ReadFile myFile = new ReadFile(myData.paths_list.get(2));
+        ReadFile myFile = new ReadFile("Bleu", myData.paths_list.get(1));
         
         System.out.println(myFile);
 
-        Horaire h1 = new Horaire(23, 56);
-        System.out.println(h1);
+        //Horaire h1 = new Horaire(23, 56);
+        //System.out.println(h1);
 
-        Horaire h2 = new Horaire(0, 57);
+        //Horaire h2 = new Horaire(0, 57);
 
-        Horaire h3 = h1.soustraction(h2);
+        //Horaire h3 = h1.soustraction(h2);
+        //System.out.println(h3);
 
-        System.out.println(h3);
+        myFile.createLine();
+
+        System.out.println();
        
-        Station gare = new Station("Ma première station");
-        Line bleu = new Line("Ligne Bleue");
+        //Station gare = new Station("Ma première station");
+        //Line bleu = new Line("Ligne Bleue");
 
-        gare.addHoraireNormal(h1);
+        //gare.addHoraireNormal(h1);
 
-        bleu.addStation(gare);
+        //bleu.addStation(gare);
 
-        System.out.println(bleu);
+        //System.out.println(bleu);
 
 
 

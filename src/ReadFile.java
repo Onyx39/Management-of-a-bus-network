@@ -5,10 +5,13 @@ import java.util.ArrayList;
  
 class ReadFile {
 
-    public String path;
+    public String nom, path;
+    public ArrayList<Station> station_list;
 
-    public ReadFile (String unChemin) {
+    public ReadFile (String unNom, String unChemin) {
+        this.nom = unNom;
         this.path = unChemin;
+        this.station_list = new ArrayList<Station>();
     }
    
     public ArrayList<String> fileToArrayList() {
@@ -22,6 +25,21 @@ class ReadFile {
 			System.out.format("I/O Exception:", ex);
 		}
         return res;
+    }
+
+    public Line createLine() {
+        Line nom = new Line(this.nom);
+        System.out.println(nom);
+        String station_line = fileToArrayList().get(0);
+        String split[] = station_line.split(" N ");
+        for (int k = 0; k < split.length; k++) {
+            System.out.println(split[k]);
+            String nom_station = split[0];
+            Station testStation = new Station(nom_station); 
+            System.out.println(testStation);
+            nom.addStation(testStation);
+        }
+        return nom;
     }
 
     @Override
