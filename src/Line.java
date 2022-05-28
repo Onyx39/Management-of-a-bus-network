@@ -17,9 +17,9 @@ class Line {
 
     @Override
     public String toString () {
-        String res = this.line_name + "\n";
+        String res = "Ligne " + this.line_name + "\n";
         for (int i = 0; i < station_list.size(); i++) {
-            res = res + station_list.get(i) + "\n";
+            res = res + "   " + station_list.get(i) + "\n";
         }
         return res;
 

@@ -1,14 +1,16 @@
 class Horaire {
 
     public int heure, minutes;
+    public Line ligne;
 
-    public Horaire (int uneHeure, int uneMinute) {
+    public Horaire (int uneHeure, int uneMinute, Line uneLigne) {
         if ((0 <= uneHeure) && (uneHeure <= 23) && (0 <= uneMinute) && (uneMinute <= 59)) {
             heure = uneHeure;
             minutes = uneMinute;
+            ligne = uneLigne;
         }
         else {
-            throw new java.lang.Error("Vous n'avez pas défni correctement l'horaire");
+            throw new java.lang.Error("Vous n'avez pas défini correctement l'horaire");
         }
     }
 
@@ -22,7 +24,7 @@ class Horaire {
         if (newHeure >= 24) {
             newHeure =- 24;
         }
-        return new Horaire(newHeure, newMinute);
+        return new Horaire(newHeure, newMinute, ligne);
     }
 
     public Horaire soustraction(Horaire h) {
@@ -38,16 +40,40 @@ class Horaire {
         }
         int newHeure = this.heure - h.heure;
 
-        return new Horaire(newHeure, newMinute);
+        return new Horaire(newHeure, newMinute, ligne);
+    }
+
+    public boolean superieurA(Horaire h) {
+        if (this.heure > h.heure) {
+            return true;
+        }
+        else {if ((this.heure == h.heure) & (this.minutes > h.minutes)) {
+            return true;
+        }
+        else { return false;}}
+    }
+
+    public boolean inferieurA(Horaire h) {
+        if (this.heure < h.heure){
+            return true;
+        }
+        else {if ((this.heure == h.heure) & (this.minutes < h.minutes)) {
+            return true;
+        }
+        else {return false;}}
     }
 
     @Override
     public String toString () {
-        if (minutes > 10) {
-            return heure + ":" + minutes;
+        String res = "";
+        if (minutes >= 10) {
+            res += heure + ":" + minutes  + " (";
         }
         else {
-        return heure + ":0" + minutes;
+            res += heure + ":0" + minutes + " (";
         }
+        String[] split = ligne.line_name.split(" ");
+        res += split[0] + ")";
+        return res;
     }
 }

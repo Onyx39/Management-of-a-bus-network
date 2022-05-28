@@ -5,15 +5,19 @@ class Station {
     public String station_name;
     public ArrayList<Line> lines;
     public ArrayList<Station> voisins;
-    public ArrayList<Horaire> horaires_normaux;
-    public ArrayList<Horaire> horaires_feries; 
+    public ArrayList<Horaire> horaires_normaux_sens_1;
+    public ArrayList<Horaire> horaires_normaux_sens_2;
+    public ArrayList<Horaire> horaires_feries_sens_1; 
+    public ArrayList<Horaire> horaires_feries_sens_2; 
 
     public Station (String aName) {
         station_name = aName;
         lines = new ArrayList<Line>();
         voisins = new ArrayList<Station>();
-        horaires_normaux = new ArrayList<Horaire>();
-        horaires_feries = new ArrayList<Horaire>();
+        horaires_normaux_sens_1 = new ArrayList<Horaire>();
+        horaires_normaux_sens_2 = new ArrayList<Horaire>();
+        horaires_feries_sens_1 = new ArrayList<Horaire>();
+        horaires_feries_sens_2 = new ArrayList<Horaire>();
     }
     
     public void addLine(Line l) {
@@ -25,16 +29,64 @@ class Station {
         s.voisins.add(this);
     }
 
-    public void addHoraireNormal (Horaire h){
-        horaires_normaux.add(h);
-    } 
-    
-    public void addHoraireFerie (Horaire h){
-        horaires_feries.add(h);
-    }   
-    
+    public String getStation_name() {
+        return station_name;
+    }
+
+    public void setStation_name(String station_name) {
+        this.station_name = station_name;
+    }
+
+    public ArrayList<Station> getVoisins() {
+        return voisins;
+    }
+
+    public void setVoisins(ArrayList<Station> voisins) {
+        this.voisins = voisins;
+    }
+
+    public ArrayList<Horaire> getHoraires_normaux_sens_1() {
+        return horaires_normaux_sens_1;
+    }
+
+    public void setHoraires_normaux_sens_1(ArrayList<Horaire> horaires_normaux_sens_1) {
+        this.horaires_normaux_sens_1 = horaires_normaux_sens_1;
+    }
+
+    public ArrayList<Horaire> getHoraires_normaux_sens_2() {
+        return horaires_normaux_sens_2;
+    }
+
+    public void setHoraires_normaux_sens_2(ArrayList<Horaire> horaires_normaux_sens_2) {
+        this.horaires_normaux_sens_2 = horaires_normaux_sens_2;
+    }
+
+    public ArrayList<Horaire> getHoraires_feries_sens_1() {
+        return horaires_feries_sens_1;
+    }
+
+    public void setHoraires_feries_sens_1(ArrayList<Horaire> horaires_feries_sens_1) {
+        this.horaires_feries_sens_1 = horaires_feries_sens_1;
+    }
+
+    public ArrayList<Horaire> getHoraires_feries_sens_2() {
+        return horaires_feries_sens_2;
+    }
+
+    public void setHoraires_feries_sens_2(ArrayList<Horaire> horaires_feries_sens_2) {
+        this.horaires_feries_sens_2 = horaires_feries_sens_2;
+    }
+
     @Override
     public String toString () {
-        return "Station : " + this.station_name;
+        String res = "Station : " + this.station_name + " (";
+        for (int y = 0; y < lines.size(); y++) {
+            String[] split = lines.get(y).line_name.split(" ");
+            res += split[0] + ", ";
+        }
+        res = res.substring(0, res.length()-2);
+        res = res + ')';
+        return res;
+
     }
 }
