@@ -47,7 +47,7 @@ class Horaire {
         if (this.heure > h.heure) {
             return true;
         }
-        else {if ((this.heure == h.heure) & (this.minutes > h.minutes)) {
+        else {if ((this.heure == h.heure) & (this.minutes >= h.minutes)) {
             return true;
         }
         else { return false;}}
@@ -57,7 +57,7 @@ class Horaire {
         if (this.heure < h.heure){
             return true;
         }
-        else {if ((this.heure == h.heure) & (this.minutes < h.minutes)) {
+        else {if ((this.heure == h.heure) & (this.minutes <= h.minutes)) {
             return true;
         }
         else {return false;}}
@@ -74,6 +74,7 @@ class Horaire {
         }
         String[] split = ligne.line_name.split(" ");
         res += split[0] + ")";
+        /*res += split[0];*/
         return res;
     }
 }
