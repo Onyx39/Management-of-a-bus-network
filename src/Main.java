@@ -42,6 +42,8 @@ class Main {
         new Shortest("Chorus", "GARE", new Horaire (10, 10, null), 0, G1);
         new Shortest("Chorus", "Pommaries", new Horaire (10, 10, null), 1, G1);
 
+        new Fastest("Chorus", "GARE", new Horaire (10, 10, null), 0, G1);
+
         /*System.out.println(G1.liste_stations.get(8).horaires_normaux_sens_1 + "\n");
         System.out.println(G1.liste_stations.get(8).horaires_normaux_sens_2 + "\n");
         System.out.println(G1.liste_stations.get(8).horaires_feries_sens_1 + "\n");

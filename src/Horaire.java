@@ -68,15 +68,21 @@ class Horaire {
     public String toString () {
         String res = "";
         if (minutes >= 10) {
-            res += heure + ":" + minutes  + "  (";
+            res += heure + ":" + minutes;
         }
         else {
-            res += heure + ":0" + minutes + "  (";
+            res += heure + ":0" + minutes;
         }
+        if (this.ligne == null) {
+            return res;
+        }
+        else {      
+        res += "  (" ; 
         String[] split = ligne.line_name.split(" ");
         res += split[0] + ")";
         res += split[0];
         return res;
+    }
     }
 
     public int getHeure() {
