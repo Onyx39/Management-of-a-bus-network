@@ -39,40 +39,9 @@ public class Fastest {
             }
             else {dictionnaire.put(reste_a_visiter.get(t).station_name, new Horaire(23, 59, null));}
         }   
-        System.out.println(dictionnaire);
-
-        /*for (int t = 0; t < depart.lines.size(); t++) {
-            for (int u = 0; u < arrivee.lines.size(); u++) {
-                if (depart.lines.get(t) == arrivee.lines.get(u)) {
-                    while (!testFin(dictionnaire, reste_a_visiter)) {
-                        ArrayList<Horaire> bonsHoraires = null;
-                        String sensLigne = arrivee.lines.get(u).line_name.valueOf(arrivee.lines.get(u).line_name.charAt(arrivee.lines.get(u).line_name.length() - 1));
-                        if (ferie == 0 && sensLigne.equals("B")) {
-                            bonsHoraires = arrivee.lines.get(u).horaires_normaux_sens_2;
-                        }
-                        else { if (ferie == 0 && sensLigne.equals("A")) {
-                            bonsHoraires = arrivee.lines.get(u)..horaires_normaux_sens_1;
-                
-                        }
-                        else { if (ferie == 1 && sensLigne.equals("B")) {
-                            bonsHoraires = reste.get(i).horaires_feries_sens_2;
-                
-                        }
-                        else {if (ferie == 1 && sensLigne.equals("A")) {
-                            bonsHoraires = reste.get(i).horaires_feries_sens_1;
-                
-                        }}}}
-                        for (int l = 0; l < noeud_courant.voisins.size(); l++) {
-
-
-                        
-                        noeud_courant = newNoeudCourant(dictionnaire, reste_a_visiter, depart.lines.get(t));
-                        reste_a_visiter = resetResteAVisiter(unGraph);
-                    }
-                }
-            }
-        } */
-
+        System.out.println("PARCOURS FASTEST");
+        System.out.println("[Initilisation pour l'algorithme de Dijkstra]");
+        System.out.println(dictionnaire + "\n");
     }
 
 
@@ -84,7 +53,7 @@ public class Fastest {
     public Station newNoeudCourant(Map<String, Horaire> dictionnaire, ArrayList<Station> reste, Line laLigne) {
         Horaire hor_min = new Horaire(23, 59, null);
         ArrayList<Horaire> bonsHoraires = null;
-        String sensLigne = laLigne.line_name.valueOf(laLigne.line_name.charAt(laLigne.line_name.length() - 1));
+        String sensLigne = String.valueOf(laLigne.line_name.charAt(laLigne.line_name.length() - 1));
         Station candidat = null;
         for (int i = 0; i < reste.size(); i++) {
             String nom = reste.get(i).station_name;
@@ -104,7 +73,7 @@ public class Fastest {
     
             }}}}
             for (int j = 0; j < bonsHoraires.size(); j++) {
-                Horaire nextHoraire = null;
+                //Horaire nextHoraire = null;
                 for (int k = 0; k < bonsHoraires.size(); k++) {
                     if (dictionnaire.get(nom).inferieurA(hor_min) && bonsHoraires.get(k).ligne == laLigne) {
                         candidat = reste.get(i);
@@ -113,7 +82,6 @@ public class Fastest {
                 }
             }
         }
-        //System.out.println(candidat);
         return candidat;
 
     }
@@ -125,6 +93,4 @@ public class Fastest {
         }
         return reste_a_visiter;
     }
-
-
 }

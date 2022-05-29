@@ -5,8 +5,6 @@ class Station {
     public String station_name;
     public ArrayList<Line> lines;
     public ArrayList<Station> voisins;
-    //public ArrayList<Station> voisins_sens_1;
-    //public ArrayList<Station> voisins_sens_2;
     public ArrayList<Horaire> horaires_normaux_sens_1;
     public ArrayList<Horaire> horaires_normaux_sens_2;
     public ArrayList<Horaire> horaires_feries_sens_1; 
@@ -16,8 +14,6 @@ class Station {
         station_name = aName;
         lines = new ArrayList<Line>();
         voisins = new ArrayList<Station>();
-        //voisins_sens_1 = new ArrayList<Station>();
-        //voisins_sens_2 = new ArrayList<Station>();
         horaires_normaux_sens_1 = new ArrayList<Horaire>();
         horaires_normaux_sens_2 = new ArrayList<Horaire>();
         horaires_feries_sens_1 = new ArrayList<Horaire>();
@@ -32,20 +28,6 @@ class Station {
         voisins.add(s);
         s.voisins.add(this);
     }
-
-    /*public void addVoisins_sens1 (Station s) {
-        voisins_sens_1.add(s);
-        s.voisins_sens_2.add(this);
-        voisins.add(s);
-        s.voisins.add(this);
-    }
-
-    public void addVoisins_sens2 (Station s) {
-        voisins_sens_2.add(s);
-        s.voisins_sens_1.add(this);
-        voisins.add(s);
-        s.voisins.add(this);
-    }*/
 
     public String getStation_name() {
         return station_name;
@@ -74,22 +56,6 @@ class Station {
     public void setVoisins(ArrayList<Station> newVoisins) {
         this.voisins = newVoisins;
     }
-
-    /*public ArrayList<Station> getVoisins_sens_1() {
-        return voisins_sens_1;
-    }
-
-    public void setVoisins_sens_1(ArrayList<Station> voisins_sens_1) {
-        this.voisins_sens_1 = voisins_sens_1;
-    }
-
-    public ArrayList<Station> getVoisins_sens_2() {
-        return voisins_sens_2;
-    }
-
-    public void setVoisins_sens_2(ArrayList<Station> voisins_sens_2) {
-        this.voisins_sens_2 = voisins_sens_2;
-    }*/
 
     public void setHoraires_normaux_sens_1(ArrayList<Horaire> horaires_normaux_sens_1) {
         this.horaires_normaux_sens_1 = horaires_normaux_sens_1;

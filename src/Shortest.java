@@ -17,7 +17,6 @@ public class Shortest {
             reste_a_visiter.add(unGraph.liste_stations.get(t));
         }
         for (int v = 0; v < reste_a_visiter.size(); v++) {
-            //System.out.println(reseau.liste_stations.get(v).station_name);
             if (reste_a_visiter.get(v).station_name.equals(unDepart)) {
                 depart = reste_a_visiter.get(v);
                 noeud_courant = depart;
@@ -39,17 +38,6 @@ public class Shortest {
             }
             else {dictionnaire.put(reste_a_visiter.get(t).station_name, Integer.MAX_VALUE);}
         }   
-        /*System.out.println(dictionnaire);
-        System.out.println(noeud_courant);
-
-        for (int l = 0; l < noeud_courant.voisins.size(); l++) {
-            String nom_voisin = noeud_courant.getVoisins().get(l).station_name;
-            dictionnaire.replace(nom_voisin, 1);
-        }
-        System.out.println(dictionnaire);
-        System.out.println(testFin(dictionnaire));
-        dictionnaire.replace("Arret_2", 458);
-        System.out.println(testFin(dictionnaire));*/
 
         while (!testFin(dictionnaire, reste_a_visiter)) {
             for (int l = 0; l < noeud_courant.voisins.size(); l++) {
@@ -64,7 +52,6 @@ public class Shortest {
             }
             noeud_courant = newNoeudCourant(dictionnaire, reste_a_visiter);
         }
-        //System.out.println(dictionnaire + "\n");
         System.out.println(this.toString(dictionnaire));
 
     }  
@@ -84,7 +71,6 @@ public class Shortest {
                 num_min = dictionnaire.get(nom);
             }
         }
-        //System.out.println(candidat);
         return candidat;
 
     }
@@ -93,28 +79,21 @@ public class Shortest {
         String ligne = "";
         String affichage_ligne = "";
         Horaire horaire_depart = null;
-        //System.out.println(depart);
-        //System.out.println(arrivee);
         String res = "PARCOURS SHORTEST \nPour aller de " + depart.station_name + " à " + arrivee.station_name + ", ";
         for (int i = 0; i < depart.lines.size(); i++) {
             for (int j = 0; j < arrivee.lines.size(); j++) {
-                //System.out.println(depart.lines.get(i).station_list.indexOf(depart));
-                //System.out.println(depart.lines.get(i).equals(arrivee.lines.get(j)) && depart.lines.get(i).station_list.indexOf(depart) < arrivee.lines.get(j).station_list.indexOf(arrivee));
-                //System.out.println(depart.lines.get(i).equals(arrivee.lines.get(j)) + " : " + arrivee.lines.get(j));
                 if (depart.lines.get(i).equals(arrivee.lines.get(j)) && depart.lines.get(i).station_list.indexOf(depart) < arrivee.lines.get(j).station_list.indexOf(arrivee)) {
                     ligne = depart.lines.get(i).line_name;
                     affichage_ligne = ligne;
-                    //System.out.println(ligne + "****blkj");
                 }
             }
             if (ligne.equals("")) {
                 affichage_ligne = depart.lines.get(i).line_name;
                 affichage_ligne = affichage_ligne.substring(0, affichage_ligne.length() - 2);     
-                affichage_ligne += ",\n   puis, dès que possible, la ligne " + arrivee.lines.get(i).line_name;
-                //affichage_ligne = affichage_ligne.substring(0, affichage_ligne.length() - 2);
+                affichage_ligne += " et la ligne " + arrivee.lines.get(i).line_name;
                 ligne = depart.lines.get(i).line_name;
                 ArrayList<Horaire> bonsHoraires = null;
-                String sensLigne = depart.lines.get(i).line_name.valueOf(depart.lines.get(i).line_name.charAt(depart.lines.get(i).line_name.length() - 1));
+                String sensLigne = String.valueOf(depart.lines.get(i).line_name.charAt(depart.lines.get(i).line_name.length() - 1));
                 if (ferie == 0 && sensLigne.equals("B")) {
                     bonsHoraires = depart.horaires_normaux_sens_2;
                 }
@@ -158,22 +137,17 @@ public class Shortest {
     }
 
     public ArrayList<Horaire> getProchainHoraire(String nom_ligne) {
-        //System.out.println(nom_ligne);
         ArrayList<Horaire> res = new ArrayList<Horaire>();
         Line bonneLigne = null;
         ArrayList<Horaire> bonsHoraires = null;
         ArrayList<Horaire> bonsHoraires_arrivee = null;
-        for (int u = 0; u < depart.lines.size(); u++) {
-            //System.out.println(depart.lines.get(u).line_name);
-            //System.out.println(nom_ligne);
+        for (int u = 0; u < depart.lines.size(); u++)  {
             if (depart.lines.get(u).line_name.equals(nom_ligne)) {
                 bonneLigne = depart.lines.get(u);
-                //System.out.println(bonneLigne);
             }
         }
         if (bonneLigne != null) {
-            String sensLigne = bonneLigne.line_name.valueOf(bonneLigne.line_name.charAt(bonneLigne.line_name.length() - 1));
-            //System.out.println(sensLigne);
+            String sensLigne = String.valueOf(bonneLigne.line_name.charAt(bonneLigne.line_name.length() - 1));
             if (ferie == 0 && sensLigne.equals("B")) {
                 bonsHoraires = depart.horaires_normaux_sens_2;
                 bonsHoraires_arrivee = arrivee.horaires_normaux_sens_2;
@@ -193,7 +167,6 @@ public class Shortest {
                 bonsHoraires_arrivee = arrivee.horaires_feries_sens_1;
 
             }}}}
-            //System.out.println(bonsHoraires);
             for (int i = 0; i < bonsHoraires.size(); i++) {
                 if (bonsHoraires.get(i).superieurA(heure_depart) && bonsHoraires.get(i).getLigne().line_name == nom_ligne) {
                     res.add(bonsHoraires.get(i));

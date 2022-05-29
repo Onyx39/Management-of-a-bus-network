@@ -39,7 +39,9 @@ public class Foremost {
             }
             else {dictionnaire.put(reste_a_visiter.get(t).station_name, new Horaire(23, 59, null));}
         }   
-        System.out.println(dictionnaire);
+        System.out.println("PARCOURS FOREMOST");
+        System.out.println("[Initilisation pour l'algorithme de Dijkstra]");
+        System.out.println(dictionnaire + "\n");
 
     }
 }
