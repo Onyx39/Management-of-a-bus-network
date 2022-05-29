@@ -3,6 +3,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Shortest {
+    /*
+    Cette classe permet d'obtenir le trajet le plus court en distance (nombre de stations)
+    */
 
     public int ferie;
     public Horaire heure_depart;
@@ -57,11 +60,13 @@ public class Shortest {
     }  
 
     public boolean testFin (Map<String, Integer> dictionnaire, ArrayList<Station> reste ) {
+        /*Méthode qui permet de tester si tous les noeuds ont bien été visités*/
         if (reste.size() == 0) {return true;}
         return false;
     }
 
     public Station newNoeudCourant(Map<String, Integer> dictionnaire, ArrayList<Station> reste) {
+        /*Méthode qui permet de trouver le nouveau courant pour l'algorithme de Dijkstra*/
         Integer num_min = Integer.MAX_VALUE;
         Station candidat = null;
         for (int i = 0; i < reste.size(); i++) {
@@ -76,6 +81,7 @@ public class Shortest {
     }
 
     public String toString (Map<String, Integer> dictionnaire) {
+        /*Méthode pour afficher proprement les informations demandées par l'utilisateur*/
         String ligne = "";
         String affichage_ligne = "";
         Horaire horaire_depart = null;
@@ -137,6 +143,7 @@ public class Shortest {
     }
 
     public ArrayList<Horaire> getProchainHoraire(String nom_ligne) {
+        /*Méthode pour trouver le prochain horaire de départ ainsi que l'horaire d'arrivée*/
         ArrayList<Horaire> res = new ArrayList<Horaire>();
         Line bonneLigne = null;
         ArrayList<Horaire> bonsHoraires = null;

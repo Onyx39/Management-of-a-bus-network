@@ -4,6 +4,9 @@ import java.nio.charset.*;
 import java.util.ArrayList;
  
 class ReadFile {
+    /* 
+    Cette classe permet de lire un fichier et den extraire toutes les informations
+    */
 
     public String nomAller, nomRetour, path;
     public ArrayList<Station> station_list;
@@ -16,6 +19,7 @@ class ReadFile {
     }
    
     public ArrayList<String> fileToArrayList() {
+        /*Méthode qui permet de sauvegarder le texte d'un fichier dans un ArrayList*/
         Charset charset = StandardCharsets.UTF_8;
         Path myPath = Paths.get(this.path);
         ArrayList<String> res = new ArrayList<String>();
@@ -29,6 +33,10 @@ class ReadFile {
     }
 
     public Line createLineAller(Graph G) {
+        /*
+        Méthode qui permet de créer la Line dans le sens 'aller' 
+        contenant toutes les stations et tous les horaires 
+        */
         String station_line = fileToArrayList().get(0);
         String split[] = station_line.split(" N ");
         int nbStations = split.length;
@@ -45,7 +53,7 @@ class ReadFile {
                 if (G.liste_stations.get(l).getStation_name().equals(nom_station)) {
                     if (k > 0) {G.liste_stations.get(l).addVoisin(station_precedente);}
                     nomAller.addStation(G.liste_stations.get(l));
-                    test = 1;
+                    test = 1; /*La station existe déjà, le complète simplement ses informations*/
                     for (int t = 1; t < split_horaires_normaux.length; t++) {
                         String split_time[] = split_horaires_normaux[t].split(":");
                         if (!split_time[0].equals("-")) {
@@ -64,6 +72,7 @@ class ReadFile {
                 }
             }
             if (test == 0) {
+                /*Dans le cas où la station n'existe pas encore, je la créé*/
                 Station newStation = new Station(nom_station);
                 G.liste_stations.add(newStation);
                 nomAller.addStation(newStation); 
@@ -89,6 +98,10 @@ class ReadFile {
     }
 
     public Line createLineRetour(Graph G) {
+        /*
+        Méthode qui permet de créer la Line dans le sens 'retour' 
+        contenant toutes les stations et tous les horaires 
+        */
         String station_line = fileToArrayList().get(0);
         String split[] = station_line.split(" N ");
         int nbStations = split.length;
@@ -123,8 +136,46 @@ class ReadFile {
     }
 
     public void createLines(Graph G) {
+        /*
+        Méthode qui permet de créer les deux Line correspondant à la ligne de bus
+        Toutes les stations sont stockées dans le Graph donné en paramètre
+        */
         createLineAller(G);
         createLineRetour(G);
+    }
+
+    // Getters and Setters
+
+    public String getNomAller() {
+        return nomAller;
+    }
+
+    public void setNomAller(String nomAller) {
+        this.nomAller = nomAller;
+    }
+
+    public String getNomRetour() {
+        return nomRetour;
+    }
+
+    public void setNomRetour(String nomRetour) {
+        this.nomRetour = nomRetour;
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public ArrayList<Station> getStation_list() {
+        return station_list;
+    }
+
+    public void setStation_list(ArrayList<Station> station_list) {
+        this.station_list = station_list;
     }
 
     @Override
@@ -135,5 +186,4 @@ class ReadFile {
         }
         return res;
     }
-
 }

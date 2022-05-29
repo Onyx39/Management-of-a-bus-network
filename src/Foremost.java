@@ -3,6 +3,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Foremost {
+    /*
+    Cette classe permet d'obtenir le trajet permettant d'arriver le plus tôt
+    ATTENTION: Cette classe n'est pas totalment fonctionnelle
+    La classe n'affiche que l'initialisation pour l'algorithme de Dijkstra
+    */
     
     public int ferie;
     public Horaire heure_depart;
@@ -17,7 +22,6 @@ public class Foremost {
             reste_a_visiter.add(unGraph.liste_stations.get(t));
         }
         for (int v = 0; v < reste_a_visiter.size(); v++) {
-            //System.out.println(reseau.liste_stations.get(v).station_name);
             if (reste_a_visiter.get(v).station_name.equals(unDepart)) {
                 depart = reste_a_visiter.get(v);
                 noeud_courant = depart;

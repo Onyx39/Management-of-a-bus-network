@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 
 class Station {
+    /* 
+    Cette classe permet d'implémenter les stations de bus
+    */
 
     public String station_name;
     public ArrayList<Line> lines;
@@ -21,13 +24,17 @@ class Station {
     }
     
     public void addLine(Line l) {
+        /*Méthode qui permet d'affeter une ligne à une station*/
         lines.add(l);
     }
 
     public void addVoisin (Station s) {
+        /*Méthode qui permet d'ajouter une station voisine à une station*/
         voisins.add(s);
         s.voisins.add(this);
     }
+
+   // Getters and Setters
 
     public String getStation_name() {
         return station_name;
@@ -35,10 +42,6 @@ class Station {
 
     public void setStation_name(String station_name) {
         this.station_name = station_name;
-    }
-
-    public ArrayList<Horaire> getHoraires_normaux_sens_1() {
-        return horaires_normaux_sens_1;
     }
 
     public ArrayList<Line> getLines() {
@@ -53,8 +56,12 @@ class Station {
         return voisins;
     }
 
-    public void setVoisins(ArrayList<Station> newVoisins) {
-        this.voisins = newVoisins;
+    public void setVoisins(ArrayList<Station> voisins) {
+        this.voisins = voisins;
+    }
+
+    public ArrayList<Horaire> getHoraires_normaux_sens_1() {
+        return horaires_normaux_sens_1;
     }
 
     public void setHoraires_normaux_sens_1(ArrayList<Horaire> horaires_normaux_sens_1) {
