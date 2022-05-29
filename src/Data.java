@@ -1,7 +1,9 @@
 import java.util.ArrayList;
-//Contient tous les liens menant aux fichiers à lire.
 
 class Data {
+    /*
+    Cette classe permet de stocker tous les chemins menant aux fichiers à lire
+    */
 
     public ArrayList<String> paths_list;
 
@@ -10,7 +12,18 @@ class Data {
     }
 
     public void addPath(String s) {
+        /*Méthode permettant d'ajouter un chemin dans l'ArrayList*/
         this.paths_list.add(s);
+    }
+
+    //Getters and Setters
+
+    public ArrayList<String> getPaths_list() {
+        return paths_list;
+    }
+
+    public void setPaths_list(ArrayList<String> paths_list) {
+        this.paths_list = paths_list;
     }
 
     @Override
@@ -21,7 +34,4 @@ class Data {
         }
         return s;
     }
-
-
-
 }

@@ -1,6 +1,10 @@
 import java.util.ArrayList;
 
 public class Graph {
+    /*
+    Cette classe permet de stocker la liste de toutes les stations du réseau
+    Elle permettra de contruire des graph grâce à l'algorithle de Dijkstra
+    */
     
     public String nom;
     public ArrayList<Station> liste_stations;
@@ -10,16 +14,23 @@ public class Graph {
         liste_stations = new ArrayList<Station>();
     }
 
-    public ArrayList<String> getLinesName () {
-        ArrayList<String> liste_lignes = new ArrayList<String>();
-        for (int i = 0; i < liste_stations.size(); i++) {
-            for (int k = 0; k < liste_stations.get(i).lines.size(); k++) {
+    // Getters and Setters
 
-            }
-        }
-        return liste_lignes;
+    public String getNom() {
+        return nom;
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public ArrayList<Station> getListe_stations() {
+        return liste_stations;
+    }
+
+    public void setListe_stations(ArrayList<Station> liste_stations) {
+        this.liste_stations = liste_stations;
+    }
 
     @Override
     public String toString() {

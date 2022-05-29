@@ -2,9 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.net.ssl.HostnameVerifier;
-
 public class Fastest {
+    /*
+    Cette classe permet d'obtenir le trajet le plus rapide
+    ATTENTION: Cette classe n'est pas totalment fonctionnelle
+    La classe n'affiche que l'initialisation pour l'algorithme de Dijkstra
+    */
     
     public int ferie;
     public Horaire heure_depart;
@@ -19,7 +22,6 @@ public class Fastest {
             reste_a_visiter.add(unGraph.liste_stations.get(t));
         }
         for (int v = 0; v < reste_a_visiter.size(); v++) {
-            //System.out.println(reseau.liste_stations.get(v).station_name);
             if (reste_a_visiter.get(v).station_name.equals(unDepart)) {
                 depart = reste_a_visiter.get(v);
                 noeud_courant = depart;
@@ -41,52 +43,23 @@ public class Fastest {
             }
             else {dictionnaire.put(reste_a_visiter.get(t).station_name, new Horaire(23, 59, null));}
         }   
-        System.out.println(dictionnaire);
-
-        /*for (int t = 0; t < depart.lines.size(); t++) {
-            for (int u = 0; u < arrivee.lines.size(); u++) {
-                if (depart.lines.get(t) == arrivee.lines.get(u)) {
-                    while (!testFin(dictionnaire, reste_a_visiter)) {
-                        ArrayList<Horaire> bonsHoraires = null;
-                        String sensLigne = arrivee.lines.get(u).line_name.valueOf(arrivee.lines.get(u).line_name.charAt(arrivee.lines.get(u).line_name.length() - 1));
-                        if (ferie == 0 && sensLigne.equals("B")) {
-                            bonsHoraires = arrivee.lines.get(u).horaires_normaux_sens_2;
-                        }
-                        else { if (ferie == 0 && sensLigne.equals("A")) {
-                            bonsHoraires = arrivee.lines.get(u)..horaires_normaux_sens_1;
-                
-                        }
-                        else { if (ferie == 1 && sensLigne.equals("B")) {
-                            bonsHoraires = reste.get(i).horaires_feries_sens_2;
-                
-                        }
-                        else {if (ferie == 1 && sensLigne.equals("A")) {
-                            bonsHoraires = reste.get(i).horaires_feries_sens_1;
-                
-                        }}}}
-                        for (int l = 0; l < noeud_courant.voisins.size(); l++) {
-
-
-                        
-                        noeud_courant = newNoeudCourant(dictionnaire, reste_a_visiter, depart.lines.get(t));
-                        reste_a_visiter = resetResteAVisiter(unGraph);
-                    }
-                }
-            }
-        } */
-
+        System.out.println("PARCOURS FASTEST");
+        System.out.println("[Initilisation pour l'algorithme de Dijkstra]");
+        System.out.println(dictionnaire + "\n");
     }
 
 
     public boolean testFin (Map<String, Horaire> dictionnaire, ArrayList<Station> reste) {
+        /*Méthode qui permet de tester si tous les noeuds ont bien été visités*/
         if (reste.size() == 0) {return true;}
         return false;
     }
 
     public Station newNoeudCourant(Map<String, Horaire> dictionnaire, ArrayList<Station> reste, Line laLigne) {
+        /*Méthode qui permet de trouver le nouveau courant pour l'algorithme de Dijkstra*/
         Horaire hor_min = new Horaire(23, 59, null);
         ArrayList<Horaire> bonsHoraires = null;
-        String sensLigne = laLigne.line_name.valueOf(laLigne.line_name.charAt(laLigne.line_name.length() - 1));
+        String sensLigne = String.valueOf(laLigne.line_name.charAt(laLigne.line_name.length() - 1));
         Station candidat = null;
         for (int i = 0; i < reste.size(); i++) {
             String nom = reste.get(i).station_name;
@@ -106,7 +79,7 @@ public class Fastest {
     
             }}}}
             for (int j = 0; j < bonsHoraires.size(); j++) {
-                Horaire nextHoraire = null;
+                //Horaire nextHoraire = null;
                 for (int k = 0; k < bonsHoraires.size(); k++) {
                     if (dictionnaire.get(nom).inferieurA(hor_min) && bonsHoraires.get(k).ligne == laLigne) {
                         candidat = reste.get(i);
@@ -115,18 +88,16 @@ public class Fastest {
                 }
             }
         }
-        //System.out.println(candidat);
         return candidat;
 
     }
 
     public ArrayList<Station> resetResteAVisiter (Graph unGraph) {
+        /*Méthode qui permet de réinitialiser la liste des noeuds qu'il reste à visiter*/
         ArrayList<Station> reste_a_visiter = new ArrayList<Station>();
         for (int t = 0; t < unGraph.liste_stations.size(); t++) {
             reste_a_visiter.add(unGraph.liste_stations.get(t));
         }
         return reste_a_visiter;
     }
-
-
 }
