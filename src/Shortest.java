@@ -5,10 +5,13 @@ import java.util.Map;
 public class Shortest {
 
     public int ferie;
+    public Horaire heure_depart;
     public Station depart, noeud_courant, arrivee;
     public ArrayList<Station> reste_a_visiter;
 
-    public Shortest (String unDepart, String uneArrivee, int ferie, Graph unGraph) {
+    public Shortest (String unDepart, String uneArrivee, Horaire uneHeure, int testFerie, Graph unGraph) {
+        heure_depart = uneHeure;
+        ferie = testFerie;
         reste_a_visiter = new ArrayList<Station>();
         for (int t = 0; t < unGraph.liste_stations.size(); t++) {
             reste_a_visiter.add(unGraph.liste_stations.get(t));
@@ -25,6 +28,9 @@ public class Shortest {
         }
         if (depart == null || arrivee == null) {
             throw new java.lang.Error("Les noms de stations ne sont pas valides");
+        }
+        if (depart == arrivee) {
+            throw new java.lang.Error("Vous avez rentré deux fois le même station");
         }
         Map<String, Integer> dictionnaire = new HashMap<>();
         for (int t = 0; t < reste_a_visiter.size(); t++) {
@@ -58,20 +64,14 @@ public class Shortest {
             }
             noeud_courant = newNoeudCourant(dictionnaire, reste_a_visiter);
         }
-        System.out.println(dictionnaire + "\n");
-
+        //System.out.println(dictionnaire + "\n");
+        System.out.println(this.toString(dictionnaire));
 
     }  
 
     public boolean testFin (Map<String, Integer> dictionnaire, ArrayList<Station> reste ) {
-        if (reste.size() == 0 ) {return true;}
+        if (reste.size() == 0) {return true;}
         return false;
-        /*for (int i = 0; i < reseau.liste_stations.size(); i++) {
-            if (dictionnaire.get(reseau.liste_stations.get(i).station_name) == Integer.MAX_VALUE) {
-                return false;
-            }
-        }
-        return true;*/
     }
 
     public Station newNoeudCourant(Map<String, Integer> dictionnaire, ArrayList<Station> reste) {
@@ -87,6 +87,140 @@ public class Shortest {
         //System.out.println(candidat);
         return candidat;
 
+    }
+
+    public String toString (Map<String, Integer> dictionnaire) {
+        String ligne = "";
+        String affichage_ligne = "";
+        Horaire horaire_depart = null;
+        //System.out.println(depart);
+        //System.out.println(arrivee);
+        String res = "PARCOURS SHORTEST \nPour aller de " + depart.station_name + " à " + arrivee.station_name + ", ";
+        for (int i = 0; i < depart.lines.size(); i++) {
+            for (int j = 0; j < arrivee.lines.size(); j++) {
+                //System.out.println(depart.lines.get(i).station_list.indexOf(depart));
+                //System.out.println(depart.lines.get(i).equals(arrivee.lines.get(j)) && depart.lines.get(i).station_list.indexOf(depart) < arrivee.lines.get(j).station_list.indexOf(arrivee));
+                //System.out.println(depart.lines.get(i).equals(arrivee.lines.get(j)) + " : " + arrivee.lines.get(j));
+                if (depart.lines.get(i).equals(arrivee.lines.get(j)) && depart.lines.get(i).station_list.indexOf(depart) < arrivee.lines.get(j).station_list.indexOf(arrivee)) {
+                    ligne = depart.lines.get(i).line_name;
+                    affichage_ligne = ligne;
+                    //System.out.println(ligne + "****blkj");
+                }
+            }
+            if (ligne.equals("")) {
+                affichage_ligne = depart.lines.get(i).line_name;
+                affichage_ligne = affichage_ligne.substring(0, affichage_ligne.length() - 2);     
+                affichage_ligne += ",\n   puis, dès que possible, la ligne " + arrivee.lines.get(i).line_name;
+                //affichage_ligne = affichage_ligne.substring(0, affichage_ligne.length() - 2);
+                ligne = depart.lines.get(i).line_name;
+                ArrayList<Horaire> bonsHoraires = null;
+                String sensLigne = depart.lines.get(i).line_name.valueOf(depart.lines.get(i).line_name.charAt(depart.lines.get(i).line_name.length() - 1));
+                if (ferie == 0 && sensLigne.equals("B")) {
+                    bonsHoraires = depart.horaires_normaux_sens_2;
+                }
+                else { if (ferie == 0 && sensLigne.equals("A")) {
+                    bonsHoraires = depart.horaires_normaux_sens_1;
+    
+                }
+                else { if (ferie == 1 && sensLigne.equals("B")) {
+                    bonsHoraires = depart.horaires_feries_sens_2;
+    
+                }
+                else {if (ferie == 1 && sensLigne.equals("A")) {
+                    bonsHoraires = depart.horaires_feries_sens_1;
+    
+                }}}}
+                for (int z = 0; i < bonsHoraires.size(); z++) {
+                    if (bonsHoraires.get(z).superieurA(heure_depart) && bonsHoraires.get(z).getLigne().line_name == ligne) {
+                        horaire_depart = bonsHoraires.get(z);
+                        break;
+                    }
+                }
+        }
+        }
+        res += "prenez la ligne " + affichage_ligne;
+        res = res.substring(0, res.length()-2); 
+        res += "\n";
+        res += "Vous descendrez dans " + dictionnaire.get(arrivee.station_name) + " stations \n";
+        if (getProchainHoraire(ligne) != null && getProchainHoraire(ligne).size() == 2) {
+            res += "Votre prochain horaire est " + getProchainHoraire(ligne).get(0).toString();
+            res = res.substring(0, res.length()-6); 
+            res += "\nArrivée prévue à " + getProchainHoraire(ligne).get(1).toString();
+            res = res.substring(0, res.length()-6);
+        }
+        else {
+            res += "Votre prochain horaire est " + horaire_depart.toString();
+            res = res.substring(0, res.length()-6);
+        }
+        res += "\n";
+
+        return res;
+    }
+
+    public ArrayList<Horaire> getProchainHoraire(String nom_ligne) {
+        //System.out.println(nom_ligne);
+        ArrayList<Horaire> res = new ArrayList<Horaire>();
+        Line bonneLigne = null;
+        ArrayList<Horaire> bonsHoraires = null;
+        ArrayList<Horaire> bonsHoraires_arrivee = null;
+        for (int u = 0; u < depart.lines.size(); u++) {
+            //System.out.println(depart.lines.get(u).line_name);
+            //System.out.println(nom_ligne);
+            if (depart.lines.get(u).line_name.equals(nom_ligne)) {
+                bonneLigne = depart.lines.get(u);
+                //System.out.println(bonneLigne);
+            }
+        }
+        if (bonneLigne != null) {
+            String sensLigne = bonneLigne.line_name.valueOf(bonneLigne.line_name.charAt(bonneLigne.line_name.length() - 1));
+            //System.out.println(sensLigne);
+            if (ferie == 0 && sensLigne.equals("B")) {
+                bonsHoraires = depart.horaires_normaux_sens_2;
+                bonsHoraires_arrivee = arrivee.horaires_normaux_sens_2;
+            }
+            else { if (ferie == 0 && sensLigne.equals("A")) {
+                bonsHoraires = depart.horaires_normaux_sens_1;
+                bonsHoraires_arrivee = arrivee.horaires_normaux_sens_1;
+
+            }
+            else { if (ferie == 1 && sensLigne.equals("B")) {
+                bonsHoraires = depart.horaires_feries_sens_2;
+                bonsHoraires_arrivee = arrivee.horaires_feries_sens_2;
+
+            }
+            else {if (ferie == 1 && sensLigne.equals("A")) {
+                bonsHoraires = depart.horaires_feries_sens_1;
+                bonsHoraires_arrivee = arrivee.horaires_feries_sens_1;
+
+            }}}}
+            //System.out.println(bonsHoraires);
+            for (int i = 0; i < bonsHoraires.size(); i++) {
+                if (bonsHoraires.get(i).superieurA(heure_depart) && bonsHoraires.get(i).getLigne().line_name == nom_ligne) {
+                    res.add(bonsHoraires.get(i));
+                    Integer compteur = 0;
+                    Integer index = 0;
+                    for (int y = 0; y < bonsHoraires.size(); y++) {
+                        if (bonsHoraires.get(y).getLigne().line_name == nom_ligne) {
+                            compteur += 1;
+                            if (bonsHoraires.get(y) == bonsHoraires.get(i)) {
+                                index = compteur;
+                            }
+                        }
+                    }
+                    compteur = 0;
+                    for (int y = 0; y < bonsHoraires_arrivee.size(); y++) {
+                        if (bonsHoraires_arrivee.get(y).getLigne().line_name == nom_ligne) {
+                            compteur += 1;
+                            if (compteur == index) {
+                                res.add(bonsHoraires_arrivee.get(y));
+                                return res;
+                            }
+                        }
+                    }
+                }
+            }   
+        }
+        return null;
     }
 
 }

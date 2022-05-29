@@ -4,8 +4,8 @@ class Main {
         System.out.println("\nCoucou, voici le début du programme\n");
         
 
-        DataFile myData1 = new DataFile();
-        DataFile myData2 = new DataFile();
+        Data myData1 = new Data();
+        Data myData2 = new Data();
         Graph G1 = new Graph("G1");
         Graph G2 = new Graph("Test Simple");
         
@@ -30,12 +30,17 @@ class Main {
         L1.createLines(G1);
         L17.createLines(G1);
 
-        //System.out.println(G2 + "\n");
+        /*System.out.println(G1.liste_stations.get(6) + "\n");
+        System.out.println(G1.liste_stations.get(6).horaires_feries_sens_1 + "\n");
+        System.out.println(G1.liste_stations.get(6).horaires_normaux_sens_1 + "\n");
+        System.out.println(G1.liste_stations.get(6).horaires_feries_sens_2 +  "\n");
+        System.out.println(G1.liste_stations.get(6).horaires_normaux_sens_2 +  "\n");
 
-        new Shortest("Vernod", "Chorus", 0, G1);
-        System.out.println(G1);
-        new Shortest("GARE", "GARE", 0, G1);
+        System.out.println(G1 + "\n");*/
 
+        //new Shortest("DEPART", "ARRIVEE", new Horaire (10, 00, null), 0, G2);
+        new Shortest("Chorus", "GARE", new Horaire (10, 10, null), 0, G1);
+        new Shortest""Chorus", "Pommaries", new Horaire (10, 10, null), 1, G1);
 
         /*System.out.println(G1.liste_stations.get(8).horaires_normaux_sens_1 + "\n");
         System.out.println(G1.liste_stations.get(8).horaires_normaux_sens_2 + "\n");

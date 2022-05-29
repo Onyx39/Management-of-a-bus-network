@@ -1,11 +1,11 @@
 import java.util.ArrayList;
 //Contient tous les liens menant aux fichiers à lire.
 
-class DataFile {
+class Data {
 
     public ArrayList<String> paths_list;
 
-    public DataFile () {
+    public Data () {
         paths_list = new ArrayList<String>();
     }
 
