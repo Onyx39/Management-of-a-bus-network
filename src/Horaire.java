@@ -63,18 +63,43 @@ class Horaire {
         else {return false;}}
     }
 
+
     @Override
     public String toString () {
         String res = "";
         if (minutes >= 10) {
-            res += heure + ":" + minutes  + " (";
+            res += heure + ":" + minutes  + "  (";
         }
         else {
-            res += heure + ":0" + minutes + " (";
+            res += heure + ":0" + minutes + "  (";
         }
         String[] split = ligne.line_name.split(" ");
         res += split[0] + ")";
-        /*res += split[0];*/
+        res += split[0];
         return res;
+    }
+
+    public int getHeure() {
+        return heure;
+    }
+
+    public void setHeure(int heure) {
+        this.heure = heure;
+    }
+
+    public int getMinutes() {
+        return minutes;
+    }
+
+    public void setMinutes(int minutes) {
+        this.minutes = minutes;
+    }
+
+    public Line getLigne() {
+        return ligne;
+    }
+
+    public void setLigne(Line ligne) {
+        this.ligne = ligne;
     }
 }
